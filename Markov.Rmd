@@ -1,6 +1,13 @@
 ---
-title: A Markov Multi-State Model using the Framingham Data
-output: html_document
+title: "A Markov Multi-State Model using the Framingham Data"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+author: Tommy Ngx refix
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: show
+    theme: flatly
 ---
 
 Measuring stage duration and transition probability & intensity with the msm package.
@@ -23,7 +30,7 @@ Kyle P. Rasku MS BSN RN
 ```{r}
 library("msm")
 frmghm_ms <- read.csv("Datasets/framingham_ms.csv", header = TRUE, sep = ",") 
-frmghm_ms
+head(frmghm_ms)
 ```
 
 ## Define states and transitions allowed for model
@@ -204,8 +211,9 @@ It is very likely that the data is time-inhomogenous.
 hazard.msm(frm.pci.msm)
 ```
 
-## Diagnostic Plots
 
+
+## Diagnostic Plots
 Comparing model predictions with Kaplan-Meier curves
 
 ```{r}
@@ -236,7 +244,13 @@ The observed prevalence of a state is simply calculated as the number of individ
 
 ```{r}
 # Need to look at how this is implemented by Gentleman et al. 1994 using prevalence.msm, and plot.prevalence.msm
+plot.prevalence.msm(frm.msm, mintime=0, maxtime=15)
 ```
+
+```{r}
+plot.prevalence.msm(frm.pci2.msm, mintime=0, maxtime=15)
+```
+
 
 ## None of these models give an adequate fit
 
